@@ -1,0 +1,23 @@
+{
+  "name": "tu-mundo-fitness",
+  "version": "1.0.0",
+  "description": "Landing page de Tu Mundo Fitness desarrollada con Semantic Driven Design",
+  "author": "Tu Mundo Fitness Team",
+  "keywords": [
+    "fitness",
+    "SDD",
+    "semantic design",
+    "vue",
+    "tailwind"
+  ],
+  "scripts": {
+    "dev": "Run with Live Server or python -m http.server 8000"
+  },
+  "technologies": {
+    "html": "5",
+    "css": "3 + Tailwind",
+    "javascript": "ES6+",
+    "framework": "Vue 3",
+    "methodology": "Semantic Driven Design"
+  }
+}
