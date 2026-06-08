@@ -18,8 +18,8 @@ export default {
                         <li><a href="#home" class="text-white hover:text-green-400 transition">Inicio</a></li>
                         <li><a href="#nutrition" class="text-white hover:text-green-400 transition">Nutrición</a></li>
                         <li><a href="#fitness" class="text-white hover:text-green-400 transition">Fitness</a></li>
-                        <li><a href="#about" class="text-white hover:text-green-400 transition">Sobre nosotros</a></li>
-                        <li><a href="#contact" class="text-white hover:text-green-400 transition">Contactos</a></li>
+                        <li><a href="#about" @click="$emit('navigate', 'about')" class="text-white hover:text-green-400 transition">Sobre nosotros</a></li>
+                        <li><a href="#contact" @click="$emit('navigate', 'contact')" class="text-white hover:text-green-400 transition">Contactos</a></li>
                     </ul>
                     
                     <!-- Search and User Icon -->

@@ -48,6 +48,9 @@ export default {
                                 :key="forum.id"
                                 class="forum__item border border-gray-200 rounded-lg p-4 hover:border-green-500 transition cursor-pointer"
                                 @click="openForum(forum.id)"
+                                role="button"
+                                tabindex="0"
+                                @keydown.enter.prevent="openForum(forum.id)"
                             >
                                 <div class="flex justify-between items-start mb-2">
                                     <h4 class="font-bold text-gray-900">{{ forum.title }}</h4>
@@ -201,7 +204,11 @@ export default {
             console.log('Ver todos los comentarios');
         },
         openForum(id) {
-            console.log('Abrir foro:', id);
+            if (id === 1) {
+                window.location.hash = '#forum';
+            } else {
+                window.location.hash = '#forum';
+            }
         },
         joinChallenge(id) {
             console.log('Unirse al desafío:', id);

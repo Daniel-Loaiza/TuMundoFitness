@@ -8,9 +8,28 @@ export default {
                     <p class="text-gray-600">Mantente actualizado con las últimas tendencias y noticias del fitness</p>
                 </header>
                 
-                <div class="news__grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="relative mb-6">
+                    <a
+                        href="#fitness-news"
+                        @click.prevent="prevNews"
+                        class="carousel-control-prev absolute left-2 top-1/2 z-20 inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 shadow transition hover:bg-slate-100"
+                        aria-label="Ver card anterior"
+                    >
+                        <span class="carousel-control-prev-icon text-lg">‹</span>
+                    </a>
+                    <a
+                        href="#fitness-news"
+                        @click.prevent="nextNews"
+                        class="carousel-control-next absolute right-2 top-1/2 z-20 inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 shadow transition hover:bg-slate-100"
+                        aria-label="Ver siguiente card"
+                    >
+                        <span class="carousel-control-next-icon text-lg">›</span>
+                    </a>
+
+                    <div class="news__grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
                     <article 
-                        v-for="news in newsItems" 
+                        v-for="news in carouselNews" 
                         :key="news.id"
                         class="news__card rounded-lg overflow-hidden shadow-md hover:shadow-xl transition"
                     >
@@ -36,10 +55,43 @@ export default {
                     </article>
                 </div>
             </div>
+
+            <div v-if="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 py-8">
+                <div class="w-full max-w-3xl overflow-hidden rounded-[32px] bg-white shadow-2xl">
+                    <div class="border-b border-slate-200 bg-slate-100 px-6 py-4">
+                        <div class="flex items-start justify-between gap-4">
+                            <div>
+                                <h2 class="text-xl font-semibold text-slate-900">{{ modalArticle.title }}</h2>
+                                <p class="mt-2 text-sm text-slate-600">{{ modalArticle.excerpt }}</p>
+                            </div>
+                            <button
+                                @click="closeModal"
+                                class="text-slate-500 transition hover:text-slate-900"
+                                aria-label="Cerrar modal"
+                            >
+                                ✕
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <img
+                            :src="modalArticle.image"
+                            :alt="modalArticle.title"
+                            class="h-80 w-full object-cover"
+                        >
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600">{{ modalArticle.excerpt }}</p>
+                    </div>
+                </div>
+            </div>
         </section>
     `,
     data() {
         return {
+            showModal: false,
+            modalArticle: null,
+            currentIndex: 0,
             newsItems: [
                 {
                     id: 1,
@@ -72,10 +124,31 @@ export default {
             ]
         };
     },
+    computed: {
+        carouselNews() {
+            const count = this.newsItems.length;
+            if (!count) return [];
+            return Array.from({ length: count }, (_, index) => this.newsItems[(this.currentIndex + index) % count]);
+        }
+    },
     methods: {
+        prevNews() {
+            const count = this.newsItems.length;
+            this.currentIndex = (this.currentIndex - 1 + count) % count;
+        },
+        nextNews() {
+            const count = this.newsItems.length;
+            this.currentIndex = (this.currentIndex + 1) % count;
+        },
         readMore(id) {
-            console.log('Lee el artículo:', id);
-            // Navigate to article detail
+            const article = this.newsItems.find(item => item.id === id);
+            if (!article) return;
+            this.modalArticle = article;
+            this.showModal = true;
+        },
+        closeModal() {
+            this.showModal = false;
+            this.modalArticle = null;
         }
     }
 };

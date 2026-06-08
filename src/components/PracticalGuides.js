@@ -87,7 +87,7 @@ export default {
     },
     methods: {
         viewGuide(id) {
-            console.log('Ver guía:', id);
+            window.location.hash = `#guide-${id}`;
         }
     }
 };
