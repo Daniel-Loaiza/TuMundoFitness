@@ -1,4 +1,8 @@
 /* Fitness Games Component - Gaming Section */
+import JuegoNutricion from './juego_nutricion.js';
+import JuegoTecnica from './juego_tecnica.js';
+import JuegoProgreso from './juego_progreso.js';
+
 export default {
     template: `
         <section id="games" class="py-16 bg-white">
@@ -7,6 +11,27 @@ export default {
                     <h2 class="text-3xl font-bold text-blue-900 mb-2">Fitness Video Games</h2>
                     <p class="text-gray-600">Aprende fitness de una forma divertida y gamificada</p>
                 </header>
+
+                <div v-if="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+                    <div class="w-full max-w-5xl rounded-3xl bg-slate-950 p-4 shadow-2xl">
+                        <div class="mb-4 flex items-start justify-between gap-4">
+                            <div>
+                                <p class="text-xs uppercase tracking-[0.35em] text-emerald-200">Juego</p>
+                                <h3 class="text-2xl font-bold text-white">{{ selectedGame?.title || 'Juego' }}</h3>
+                            </div>
+                            <button
+                                type="button"
+                                class="rounded-full bg-white/10 px-3 py-2 text-white transition hover:bg-white/20"
+                                @click="closeModal"
+                                aria-label="Cerrar modal"
+                            >
+                                ✕
+                            </button>
+                        </div>
+
+                        <component :is="activeGameComponent" />
+                    </div>
+                </div>
                 
                 <div class="games__grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <article 
@@ -56,6 +81,8 @@ export default {
     `,
     data() {
         return {
+            showModal: false,
+            selectedGame: null,
             games: [
                 {
                     id: 1,
@@ -88,10 +115,23 @@ export default {
             ]
         };
     },
+    computed: {
+        activeGameComponent() {
+            if (!this.selectedGame) return null;
+            if (this.selectedGame.id === 1) return JuegoNutricion;
+            if (this.selectedGame.id === 2) return JuegoTecnica;
+            if (this.selectedGame.id === 3) return JuegoProgreso;
+            return null;
+        }
+    },
     methods: {
         playGame(id) {
-            console.log('Jugando game:', id);
-            // Navigate to game
+            this.selectedGame = this.games.find((game) => game.id === id) || null;
+            this.showModal = true;
+        },
+        closeModal() {
+            this.showModal = false;
+            this.selectedGame = null;
         }
     }
 };
