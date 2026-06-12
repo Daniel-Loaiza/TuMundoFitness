@@ -5,7 +5,7 @@ export default {
       <div class="flex flex-col gap-4">
         <header class="space-y-1 text-center sm:text-left">
           <p class="text-xs uppercase tracking-[0.35em] text-emerald-200">Simulador de progreso</p>
-          <h3 class="text-xl font-black text-cyan-200">Pixel Hurdles 🏃‍♂️</h3>
+          <h3 class="text-xl font-black text-cyan-200">Carrera de obstáculos 🏃‍♂️</h3>
           <p class="text-sm text-slate-200">Presiona ESPACIO o haz clic en el juego para saltar las vallas.</p>
         </header>
 

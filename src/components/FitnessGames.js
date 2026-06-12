@@ -2,6 +2,8 @@
 import JuegoNutricion from './juego_nutricion.js';
 import JuegoTecnica from './juego_tecnica.js';
 import JuegoProgreso from './juego_progreso.js';
+// 1. Importar el nuevo componente
+import JuegoProgresoFisico from './juego_progreso_fisico.js';
 
 export default {
     template: `
@@ -12,8 +14,9 @@ export default {
                     <p class="text-gray-600">Aprende fitness de una forma divertida y gamificada</p>
                 </header>
 
+                <!-- Modal -->
                 <div v-if="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
-                    <div class="w-full max-w-5xl rounded-3xl bg-slate-950 p-4 shadow-2xl">
+                    <div class="w-full max-w-5xl rounded-3xl bg-slate-950 p-4 shadow-2xl overflow-hidden">
                         <div class="mb-4 flex items-start justify-between gap-4">
                             <div>
                                 <p class="text-xs uppercase tracking-[0.35em] text-emerald-200">Juego</p>
@@ -29,28 +32,27 @@ export default {
                             </button>
                         </div>
 
+                        <!-- Renderizado Dinámico -->
                         <component :is="activeGameComponent" />
                     </div>
                 </div>
                 
+                <!-- Grid de Juegos -->
                 <div class="games__grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <article 
                         v-for="game in games"
                         :key="game.id"
                         class="game__card bg-gradient-to-br from-blue-50 to-green-50 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition"
                     >
-                        <!-- Game Image/Icon -->
                         <figure class="relative bg-gradient-to-b from-blue-400 to-blue-600 h-32 flex items-center justify-center">
                             <span class="text-5xl">{{ game.icon }}</span>
                             <figcaption class="sr-only">{{ game.title }}</figcaption>
                         </figure>
                         
-                        <!-- Game Info -->
                         <div class="p-4">
                             <h3 class="text-lg font-bold text-blue-900 mb-2">{{ game.title }}</h3>
                             <p class="text-gray-600 text-sm mb-4">{{ game.description }}</p>
                             
-                            <!-- Difficulty Level -->
                             <div class="mb-4">
                                 <p class="text-xs text-gray-500 mb-2">Dificultad:</p>
                                 <div class="difficulty-bars flex gap-1">
@@ -65,7 +67,6 @@ export default {
                                 </div>
                             </div>
                             
-                            <!-- Play Button -->
                             <button 
                                 @click="playGame(game.id)"
                                 class="w-full bg-green-500 text-white py-2 rounded font-bold hover:bg-green-600 transition"
@@ -118,10 +119,15 @@ export default {
     computed: {
         activeGameComponent() {
             if (!this.selectedGame) return null;
-            if (this.selectedGame.id === 1) return JuegoNutricion;
-            if (this.selectedGame.id === 2) return JuegoTecnica;
-            if (this.selectedGame.id === 3) return JuegoProgreso;
-            return null;
+            // 2. Mapear los IDs a sus componentes correspondientes
+            const componentsMap = {
+                1: JuegoNutricion,
+                2: JuegoTecnica,
+                3: JuegoProgreso,
+                4: JuegoProgresoFisico // Vinculación con ID 4
+            };
+            
+            return componentsMap[this.selectedGame.id] || null;
         }
     },
     methods: {
