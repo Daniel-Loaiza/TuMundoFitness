@@ -16,8 +16,12 @@ export default {
                     <!-- Navigation Menu -->
                     <ul class="hidden md:flex gap-6 list-none m-0 p-0">
                         <li><a href="#home" class="text-white hover:text-green-400 transition">Inicio</a></li>
-                        <li><a href="#nutrition" class="text-white hover:text-green-400 transition">Nutrición</a></li>
-                        <li><a href="#fitness" class="text-white hover:text-green-400 transition">Fitness</a></li>
+                        <li><a href="#fitness-news" class="text-white hover:text-green-400 transition">Noticias</a></li>                        
+                        <li><a href="#games" class="text-white hover:text-green-400 transition">Games</a></li>
+                        <li><a href="#podcast" class="text-white hover:text-green-400 transition">Podcast</a></li>
+                        <li><a href="#guides" class="text-white hover:text-green-400 transition">Guías</a></li>
+                        <li><a href="#training" class="text-white hover:text-green-400 transition">Entrenamientos</a></li>
+                        <li><a href="#community" class="text-white hover:text-green-400 transition">Comunidad</a></li>
                         <li><a href="#about" @click="$emit('navigate', 'about')" class="text-white hover:text-green-400 transition">Sobre nosotros</a></li>
                         <li><a href="#contact" @click="$emit('navigate', 'contact')" class="text-white hover:text-green-400 transition">Contactos</a></li>
                     </ul>

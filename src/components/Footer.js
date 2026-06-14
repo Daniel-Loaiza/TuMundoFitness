@@ -11,11 +11,6 @@ export default {
                             Tu plataforma completa de fitness, nutrición y bienestar. 
                             Aquí encontrarás todo lo que necesitas para transformar tu vida.
                         </p>
-                        <div class="social__links flex gap-3">
-                            <a href="#" aria-label="Instagram" class="text-pink-400 hover:text-pink-300">📱</a>
-                            <a href="#" aria-label="TikTok" class="text-black hover:text-gray-400">🎵</a>
-                            <a href="#" aria-label="YouTube" class="text-red-500 hover:text-red-400">📺</a>
-                        </div>
                     </section>
                     
                     <!-- Quick Links -->
@@ -25,8 +20,11 @@ export default {
                             <ul class="space-y-2 text-sm list-none p-0">
                                 <li><a href="#home" class="hover:text-white transition">Inicio</a></li>
                                 <li><a href="#fitness-news" class="hover:text-white transition">Noticias</a></li>
+                                <li><a href="#games" class="hover:text-white transition">Games</a></li>
+                                <li><a href="#podcast" class="hover:text-white transition">Podcast</a></li>
                                 <li><a href="#guides" class="hover:text-white transition">Guías</a></li>
                                 <li><a href="#training" class="hover:text-white transition">Entrenamientos</a></li>
+                                <li><a href="#community" class="hover:text-white transition">Comunidad</a></li>
                             </ul>
                         </nav>
                     </section>
@@ -36,10 +34,8 @@ export default {
                         <h3 class="text-white font-bold mb-4">Recursos</h3>
                         <nav aria-label="Resources navigation">
                             <ul class="space-y-2 text-sm list-none p-0">
-                                <li><a href="#" class="hover:text-white transition">Blog</a></li>
-                                <li><a href="#" class="hover:text-white transition">FAQ</a></li>
-                                <li><a href="#" class="hover:text-white transition">Contacto</a></li>
-                                <li><a href="#" class="hover:text-white transition">Soporte</a></li>
+                                <li><a href="#about" @click="$emit('navigate', 'about')" class="hover:text-white transition">Sobre nosotros</a></li>
+                                <li><a href="#contact" @click="$emit('navigate', 'contact')" class="hover:text-white transition">Contactos</a></li>
                             </ul>
                         </nav>
                     </section>
@@ -75,23 +71,6 @@ export default {
                     <p class="text-gray-500">
                         &copy; 2026 Tu Mundo Fitness. Todos los derechos reservados.
                     </p>
-                    <nav class="flex gap-4 justify-center md:justify-end">
-                        <a href="#" class="text-gray-500 hover:text-white transition">Privacidad</a>
-                        <a href="#" class="text-gray-500 hover:text-white transition">Términos</a>
-                        <a href="#" class="text-gray-500 hover:text-white transition">Cookies</a>
-                    </nav>
-                </div>
-                
-                <!-- Factores Footer -->
-                <div class="mt-6 text-xs text-gray-600 space-y-1">
-                    <p>Factores</p>
-                    <ul class="grid grid-cols-2 md:grid-cols-5 gap-2">
-                        <li><a href="#" class="hover:text-gray-400">Home</a></li>
-                        <li><a href="#" class="hover:text-gray-400">Privacidad</a></li>
-                        <li><a href="#" class="hover:text-gray-400">Recetas de Fitness</a></li>
-                        <li><a href="#" class="hover:text-gray-400">Eventos</a></li>
-                        <li><a href="#" class="hover:text-gray-400">Tienda Recomendada</a></li>
-                    </ul>
                 </div>
             </div>
         </footer>
