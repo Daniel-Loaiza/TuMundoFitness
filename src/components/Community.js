@@ -69,7 +69,7 @@ export default {
 
                 <div v-else>
                     <header class="mb-12">
-                        <h2 class="text-3xl font-bold text-blue-900 mb-2">Community</h2>
+                        <h2 class="text-3xl font-bold text-blue-900 mb-2">Comunidad</h2>
                         <p class="text-gray-600">Únete a miles de personas en su viaje de fitness</p>
                     </header>
                     

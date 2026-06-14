@@ -28,13 +28,6 @@ export default {
                     
                     <!-- Search and User Icon -->
                     <div class="flex items-center gap-3">
-                        <input 
-                            type="search" 
-                            placeholder="Buscar" 
-                            class="px-4 py-2 rounded-full bg-white text-gray-900 text-sm focus:outline-none"
-                            aria-label="Buscar contenido"
-                        >
-                        <button aria-label="Menu de usuario" class="text-white text-2xl">👤</button>
                     </div>
                 </nav>
                 

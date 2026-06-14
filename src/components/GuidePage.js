@@ -1,48 +1,111 @@
-/* Guide Page Component - Practical Guide Detail */
+/* Guide Page Component - Practical Guide Detail (Local Modal Implementation) */
 export default {
-    props: {
-        guideId: {
-            type: Number,
-            required: true
-        }
-    },
     template: `
-        <section class="py-16 bg-slate-50 min-h-screen">
+        <section id="guides" class="py-16 bg-slate-50">
             <div class="container">
-                <div v-if="selectedGuide" class="space-y-8">
-                    <div class="overflow-hidden rounded-3xl bg-white shadow-lg">
-                        <img
-                            :src="selectedGuide.image"
-                            :alt="selectedGuide.title"
-                            class="w-full h-[420px] object-cover"
+                <header class="mb-12">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-2">Guías Prácticas</h2>
+                    <p class="text-slate-600">Aprende paso a paso cómo optimizar tus entrenamientos, nutrición y hábitos.</p>
+                </header>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <article 
+                        v-for="guide in guides" 
+                        :key="guide.id"
+                        class="rounded-3xl bg-white overflow-hidden shadow-md hover:shadow-xl transition flex flex-col h-full border border-slate-100"
+                    >
+                        <img 
+                            :src="guide.image" 
+                            :alt="guide.title"
+                            class="w-full h-52 object-cover"
                         >
-                    </div>
-
-                    <div class="rounded-[32px] bg-white p-8 shadow-lg">
-                        <h1 class="text-4xl font-bold text-slate-900 mb-4">{{ selectedGuide.title }}</h1>
-                        <p class="text-slate-600 mb-8">
-                            Esta guía completa amplía los primeros pasos para ayudarte a avanzar con seguridad y resultados.
-                        </p>
-
-                        <ol class="space-y-6 list-decimal list-inside text-slate-700">
-                            <li v-for="step in selectedGuide.fullSteps" :key="step" class="rounded-3xl border border-slate-200 bg-slate-50 p-6">
-                                {{ step }}
-                            </li>
-                        </ol>
-                    </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold text-slate-900 mb-3">{{ guide.title }}</h3>
+                            <p class="text-slate-600 text-sm mb-6 flex-grow">
+                                Amplía los primeros pasos de esta temática para ayudarte a avanzar con seguridad y resultados.
+                            </p>
+                            <footer class="flex justify-end mt-auto">
+                                <button 
+                                    type="button"
+                                    @click="openGuide(guide.id)"
+                                    class="rounded-full bg-blue-900 px-5 py-2 text-xs font-semibold text-white hover:bg-blue-800 transition shadow-sm"
+                                >
+                                    Ver Guía Completa →
+                                </button>
+                            </footer>
+                        </div>
+                    </article>
                 </div>
+            </div>
 
-                <div v-else class="rounded-[32px] bg-white p-8 shadow-lg text-center">
-                    <p class="text-lg text-slate-700">No se encontró la guía solicitada.</p>
-                    <a href="#home" class="inline-flex mt-6 rounded-full bg-blue-900 px-6 py-3 text-sm font-semibold text-white hover:bg-blue-800">
-                        Volver a inicio
-                    </a>
+            <div 
+                v-if="showModal" 
+                class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 py-8 backdrop-blur-sm"
+                @click.self="closeModal"
+            >
+                <div class="w-full max-w-3xl overflow-hidden rounded-[32px] bg-white shadow-2xl max-h-[90vh] flex flex-col">
+                    
+                    <div class="border-b border-slate-200 bg-slate-50 px-6 py-4">
+                        <div class="flex items-start justify-between gap-4">
+                            <div>
+                                <h2 class="text-2xl font-bold text-slate-900">{{ selectedGuide.title }}</h2>
+                                <p class="mt-1 text-sm text-slate-500">Guía de pasos oficiales</p>
+                            </div>
+                            <button
+                                type="button"
+                                @click="closeModal"
+                                class="text-slate-400 transition hover:text-slate-900 font-bold text-xl p-1"
+                                aria-label="Cerrar guía"
+                            >
+                                ✕
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="overflow-y-auto p-6 space-y-6">
+                        <div>
+                            <img
+                                :src="selectedGuide.image"
+                                :alt="selectedGuide.title"
+                                class="h-64 sm:h-80 w-full object-cover rounded-2xl"
+                            >
+                        </div>
+                        
+                        <div>
+                            <p class="text-slate-600 mb-6 text-sm sm:text-base leading-relaxed">
+                                Esta guía completa amplía los primeros pasos para ayudarte a avanzar con seguridad y resultados. Sigue las recomendaciones a continuación:
+                            </p>
+
+                            <ol class="space-y-3 list-decimal list-inside text-slate-700">
+                                <li 
+                                    v-for="(step, idx) in selectedGuide.fullSteps" 
+                                    :key="idx" 
+                                    class="rounded-xl border border-slate-100 bg-slate-50 p-4 text-sm sm:text-base leading-relaxed"
+                                >
+                                    <span class="text-slate-800 font-medium">{{ step }}</span>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-slate-100 p-4 bg-slate-50 flex justify-end">
+                        <button 
+                            type="button"
+                            @click="closeModal"
+                            class="rounded-full bg-slate-200 px-6 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-300 transition"
+                        >
+                            Cerrar
+                        </button>
+                    </div>
+
                 </div>
             </div>
         </section>
     `,
     data() {
         return {
+            showModal: false,
+            selectedGuide: null,
             guides: [
                 {
                     id: 1,
@@ -98,9 +161,16 @@ export default {
             ]
         };
     },
-    computed: {
-        selectedGuide() {
-            return this.guides.find(guide => guide.id === this.guideId) || null;
+    methods: {
+        openGuide(id) {
+            const guide = this.guides.find(item => item.id === id);
+            if (!guide) return;
+            this.selectedGuide = guide;
+            this.showModal = true;
+        },
+        closeModal() {
+            this.showModal = false;
+            this.selectedGuide = null;
         }
     }
 };
